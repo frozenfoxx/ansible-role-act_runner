@@ -1,0 +1,11 @@
+---
+- name: Create Act runner service
+  community.windows.win_nssm:
+    name: "act_runner"
+    display_name: "Act Runner"
+    application: "{{ act_runner_location }}/act_runner.exe"
+    working_directory: "{{ act_runner_location }}"
+    state: started
+    arguments:
+      - daemon
+      - --config config.yaml

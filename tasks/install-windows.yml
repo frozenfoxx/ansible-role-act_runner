@@ -1,0 +1,40 @@
+---
+- name: Install nssm
+  chocolatey.chocolatey.win_chocolatey:
+    name: "nssm"
+    state: latest
+    ignore_checksums: true
+  tags:
+    - act_runner
+
+- name: Create location for act_runner
+  ansible.windows.win_file:
+    path: "{{ act_runner_location }}"
+    state: directory
+  tags:
+    - act_runner
+
+- name: Pull act_runner
+  ansible.windows.win_get_url:
+    url: "{{ act_runner_url_prefix }}/act_runner-{{ act_runner_version }}-windows-amd64.exe"
+    dest: "{{ act_runner_location }}/act_runner.exe"
+  tags:
+    - act_runner
+
+- name: Deploy configuration file
+  ansible.windows.win_template:
+    src: config.yaml.j2
+    dest: "{{ act_runner_loation }}/config.yaml"
+    backup: true
+  tags:
+    - act_runner
+
+- name: Check if a registration token is provided
+  when: act_runner_token
+  block:
+  - name: Register act_runner
+    ansible.windows.win_command:
+      cmd: "act_runner.exe register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml"
+      chdir: "{{ act_runner_location }}"
+    tags:
+      - act_runner

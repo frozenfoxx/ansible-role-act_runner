@@ -1,0 +1,25 @@
+log:
+  level: info
+
+runner:
+  file .runner
+  capacity: 1
+  env_file: .env
+  timeout: 3h
+  shutdown_timeout: 0s
+  insecure: false
+  fetch_timeout: 5s
+  fetch_interval: 2s
+  labels:
+    {% for label in act_runner_labels %}
+    - {{ label }}
+    {% endfor %}
+
+cache:
+  enabled: true
+
+container:
+  privileged: false
+
+host:
+  workdir_parent:

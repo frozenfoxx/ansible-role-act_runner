@@ -1,0 +1,7 @@
+---
+act_runner_labels:
+  - "ubuntu-latest"
+act_runner_location: "/opt/act_runner"
+act_runner_token: ""
+act_runner_url_prefix: "https://dl.gitea.com/act_runner/{{ act_runner_version }}"
+act_runner_version: "0.2.11"

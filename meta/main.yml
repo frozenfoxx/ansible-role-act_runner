@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: FrozenFOXX
+  namespace: frozenfoxx
+  role_name: act_runner
+  description: Install and configure Nektos act
+  min_ansible_version: 2.4
+  min_ansible_container_version: 2.4
+  license: Apache 2.0
+  galaxy_tags:
+    - act
+    - gitea
+  platforms:
+    - name: Debian
+    - name: Windows
