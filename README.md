@@ -38,6 +38,8 @@ Invoke the role:
         act_runner_labels: ["windows:host"]
 ```
 
+To automatically register when deploying, either supply the environment variable `ACT_RUNNER_REGISTRATION_TOKEN` or override the variable `act_runner_token`.
+
 # Contribution
 
 Pull requests welcome.
