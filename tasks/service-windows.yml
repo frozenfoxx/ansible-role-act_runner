@@ -9,3 +9,5 @@
     arguments:
       - daemon
       - --config config.yaml
+  tags:
+    - act_runner

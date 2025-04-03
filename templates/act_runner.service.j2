@@ -1,0 +1,16 @@
+[Unit]
+Description=Gitea Actions Runner
+Requires=network.target
+After=syslog.target network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/sysconfig/act_runner
+ExecStart={{ act_runner_location }}/act_runner daemon --config config.yaml
+ExecStop={{ act_runner_location }}/act_runner stop
+User=root
+PIDFile={{ act_runner_location }}/act_runner.pid
+Environment="ACT_RUNNER_PID_FILE_PATH={{ act_runner_location }}/act_runner.pid"
+
+[Install]
+WantedBy=multi-user.target

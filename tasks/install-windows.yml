@@ -24,7 +24,7 @@
 - name: Deploy configuration file
   ansible.windows.win_template:
     src: config.yaml.j2
-    dest: "{{ act_runner_loation }}/config.yaml"
+    dest: "{{ act_runner_location }}/config.yaml"
     backup: true
   tags:
     - act_runner

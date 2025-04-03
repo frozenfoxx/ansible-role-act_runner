@@ -1,0 +1,40 @@
+---
+- name: Create location for act_runner
+  ansible.builtin.file:
+    path: "{{ act_runner_location }}"
+    state: directory
+  tags:
+    - act_runner
+
+- name: Pull act_runner
+  ansible.builtin.get_url:
+    url: "{{ act_runner_url_prefix }}/act_runner-{{ act_runner_version }}-linux-amd64"
+    dest: "{{ act_runner_location }}/act_runner"
+    mode: '0755'
+  tags:
+    - act_runner
+
+- name: Deploy configuration file
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: "{{ act_runner_location }}/config.yaml"
+    backup: true
+  tags:
+    - act_runner
+
+- name: Deploy environment file
+  ansible.builtin.template:
+    src: act_runner.env.j2
+    dest: "/etc/sysconfig/act_runner"
+  tags:
+    - act_runner
+
+- name: Check if a registration token is provided
+  when: act_runner_token
+  block:
+  - name: Register act_runner
+    ansible.debian.command:
+      cmd: "./act_runner register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml"
+      chdir: "{{ act_runner_location }}"
+    tags:
+      - act_runner

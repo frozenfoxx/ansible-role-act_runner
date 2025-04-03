@@ -1,0 +1,18 @@
+---
+- name: Create Act Runner Unit File
+  ansible.builtin.template:
+    src: act_runner.service.j2
+    dest: /etc/systemd/system/
+    mode: '0644'
+  notify:
+    - reload systemctl
+  tags:
+    - act_runner
+
+- name: Start Act Runner
+  ansible.builtin.service:
+    name: act_runner.service
+    state: started
+    enabled: yes
+  tags:
+    - act_runner
