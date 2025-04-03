@@ -33,7 +33,7 @@
   when: act_runner_token
   block:
   - name: Register act_runner
-    ansible.debian.command:
+    ansible.builtin.command:
       cmd: "./act_runner register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml"
       chdir: "{{ act_runner_location }}"
     tags:
