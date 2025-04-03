@@ -34,7 +34,7 @@
   block:
   - name: Register act_runner
     ansible.windows.win_command:
-      cmd: "act_runner.exe register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml"
+      cmd: "act_runner.exe register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
       chdir: "{{ act_runner_location }}"
     tags:
       - act_runner
