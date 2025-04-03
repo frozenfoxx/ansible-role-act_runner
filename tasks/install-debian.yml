@@ -29,12 +29,19 @@
   tags:
     - act_runner
 
-- name: Check if a registration token is provided
-  when: act_runner_token
+- name: Register host with upstream server
   block:
-  - name: Register act_runner
-    ansible.builtin.command:
-      cmd: "./act_runner register --no-interactive --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
+    - name: Check if .runner file exists
+      ansible.builtin.stat:
+        path: "{{ act_runner_location }}/.runner"
+      register: runner_file_stat
+      tags:
+        - act_runner
+
+    - name: Register act_runner
+      ansible.windows.win_command:
+        cmd: "./act_runner register --no-interactive --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
       chdir: "{{ act_runner_location }}"
-    tags:
-      - act_runner
+      when: act_runner_token is defined and act_runner_token | length > 0 and not runner_file_stat.stat.exists
+      tags:
+        - act_runner
