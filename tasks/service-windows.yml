@@ -8,6 +8,7 @@
     state: started
     arguments:
       - daemon
-      - --config config.yaml
+      - --config
+      - config.yaml
   tags:
     - act_runner
