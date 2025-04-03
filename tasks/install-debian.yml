@@ -41,7 +41,7 @@
     - name: Register act_runner
       ansible.builtin.command:
         cmd: "./act_runner register --no-interactive --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
-      chdir: "{{ act_runner_location }}"
+        chdir: "{{ act_runner_location }}"
       when: act_runner_token is defined and act_runner_token | length > 0 and not runner_file_stat.stat.exists
       tags:
         - act_runner
