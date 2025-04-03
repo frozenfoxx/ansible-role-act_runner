@@ -1,2 +1,6 @@
-- name: reload systemctl
-  command: systemctl daemon-reload
+---
+- name: Reload systemctl
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+  tags:
+    - act_runner

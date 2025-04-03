@@ -5,7 +5,7 @@
     dest: /etc/systemd/system/
     mode: '0644'
   notify:
-    - reload systemctl
+    - Reload systemctl
   tags:
     - act_runner
 
