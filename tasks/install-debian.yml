@@ -34,7 +34,7 @@
   block:
   - name: Register act_runner
     ansible.builtin.command:
-      cmd: "./act_runner register --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
+      cmd: "./act_runner register --no-interactive --token {{ act_runner_token }} --name {{ inventory_hostname }} --config config.yaml --instance {{ act_runner_gitea_instance }}"
       chdir: "{{ act_runner_location }}"
     tags:
       - act_runner
