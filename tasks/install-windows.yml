@@ -17,7 +17,7 @@
 - name: Pull act_runner
   ansible.windows.win_get_url:
     url: "{{ act_runner_url_prefix }}/act_runner-{{ act_runner_version }}-windows-amd64.exe"
-    dest: "{{ act_runner_location }}\\act_runner.exe"
+    dest: "{{ act_runner_location }}/act_runner.exe"
   tags:
     - act_runner
 
